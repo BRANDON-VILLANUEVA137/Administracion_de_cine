@@ -2,10 +2,10 @@
   "name": "cine-management-system",
   "version": "1.0.0",
   "description": "Sistema de gestión de cine con Node.js, MySQL y Express",
-  "main": "server/index.js",
+  "main": "config/index.js",
   "scripts": {
-    "start": "node server/index.js",
-    "dev": "nodemon server/index.js",
+    "start": "node config/index.js",
+    "dev": "nodemon config/index.js",
     "migrate": "node database/migrate.js",
     "test": "jest"
   },
