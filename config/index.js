@@ -10,7 +10,11 @@ const app = express();
 const PORT = process.env.PORT || 8080; // Railway usa 8080 por defecto
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:5000', 'https://senzacine.netlify.app']
+}));
+
+
 app.use(bodyParser.json());
 
 // JWT Secret
@@ -20,6 +24,18 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 app.get('/', (req, res) => {
   res.send('Cine Management System API');
 });
+
+app.get('/api/movies', async (req, res) => {
+  try {
+    const [rows] = await pool.query('SELECT * FROM peliculas'); // Usa el nombre de tu tabla real
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Error al obtener películas' });
+  }
+});
+
+
 
 // Authentication routes
 app.post('/api/login', async (req, res) => {
