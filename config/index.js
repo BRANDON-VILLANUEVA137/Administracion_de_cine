@@ -11,6 +11,9 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 8080;
 
+// Servir imágenes de la carpeta public/img
+app.use('/img', express.static(path.join(__dirname, 'public/img')));
+
 // Orígenes permitidos
 const allowedOrigins = [
   'http://127.0.0.1:5500',
@@ -42,9 +45,6 @@ app.use(cors({
 
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
-
-// Servir imágenes de la carpeta public/img
-app.use('/img', express.static(path.join(__dirname, 'public/img')));
 
 // JWT Secret
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';

@@ -80,52 +80,74 @@ document.addEventListener('DOMContentLoaded', () => {
     const formContainer = document.getElementById('movie-form-container');
     formContainer.innerHTML = `
       <form id="movie-form">
-        <div class="form-group">
-          <label for="title">Título:</label>
-          <input type="text" id="title" required>
-        </div>
-        <div class="form-group">
-          <label for="classification">Clasificación:</label>
-          <input type="text" id="classification" required>
-        </div>
-        <div class="form-group">
-          <label for="duration">Duración (min):</label>
-          <input type="number" id="duration" required>
-        </div>
-        <div class="form-group">
-<label for="image">Imagen:</label>
+  <div class="form-group">
+    <label for="title">Título:</label>
+    <input type="text" id="title" required>
+  </div>
+  <div class="form-group">
+    <label for="synopsis">Sinopsis:</label>
+    <textarea id="synopsis" required></textarea>
+  </div>
+  <div class="form-group">
+    <label for="duration">Duración (min):</label>
+    <input type="number" id="duration" required>
+  </div>
+  <div class="form-group">
+    <label for="classification">Clasificación:</label>
+    <input type="text" id="classification" required>
+  </div>
+  <div class="form-group">
+    <label for="genre_id">Género (ID):</label>
+    <input type="number" id="genre_id" required>
+  </div>
+  <div class="form-group">
+    <label for="trailer_url">URL del trailer:</label>
+    <input type="url" id="trailer_url" required>
+  </div>
+  <div class="form-group">
+    <label for="release_date">Fecha de estreno:</label>
+    <input type="date" id="release_date" required>
+  </div>
+  <div class="form-group">
+    <label for="image">Imagen:</label>
     <input type="file" id="image" name="image" accept="image/*" required>
-        </div>
-        <button type="submit">Guardar Película</button>
-      </form>
+  </div>
+  <button type="submit">Guardar Película</button>
+</form>
+
     `;
   
     document.getElementById('movie-form').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const formData = new FormData();
-        formData.append('title', document.getElementById('title').value);
-        formData.append('classification', document.getElementById('classification').value);
-        formData.append('duration', document.getElementById('duration').value);
-        formData.append('image', document.getElementById('image').files[0]);
-      
-        try {
-          const response = await fetch('https://administraciondecine-gestion-de-cine.up.railway.app/api/movies', {
-            method: 'POST',
-            body: formData
-          });
-      
-          const data = await response.json();
-          if (response.ok) {
-            alert('Película agregada con éxito');
-            loadMoviesPage();
-          } else {
-            alert(data.error || 'Error al guardar la película');
-          }
-        } catch (error) {
-          console.error('Error al guardar película:', error);
-          alert('Error de conexión');
+      e.preventDefault();
+      const formData = new FormData();
+      formData.append('title', document.getElementById('title').value);
+      formData.append('synopsis', document.getElementById('synopsis').value);
+      formData.append('duration', document.getElementById('duration').value);
+      formData.append('classification', document.getElementById('classification').value);
+      formData.append('genre_id', document.getElementById('genre_id').value);
+      formData.append('trailer_url', document.getElementById('trailer_url').value);
+      formData.append('release_date', document.getElementById('release_date').value);
+      formData.append('image', document.getElementById('image').files[0]);
+    
+      try {
+        const response = await fetch('https://administraciondecine-gestion-de-cine.up.railway.app/api/movies', {
+          method: 'POST',
+          body: formData
+        });
+    
+        const data = await response.json();
+        if (response.ok) {
+          alert('Película agregada con éxito');
+          loadMoviesPage();
+        } else {
+          alert(data.error || 'Error al guardar la película');
         }
-      });
+      } catch (error) {
+        console.error('Error al guardar película:', error);
+        alert('Error de conexión');
+      }
+    });
+    
       }
   
 
