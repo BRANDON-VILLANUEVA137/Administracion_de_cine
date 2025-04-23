@@ -9,11 +9,19 @@ const bcrypt = require('bcryptjs');
 const app = express();
 const PORT = process.env.PORT || 8080; // Railway usa 8080 por defecto
 
+const allowedOrigins = [
+  'http://127.0.0.1:5500',
+  'http://localhost:5500',
+  'https://senzacine.netlify.app'
+];
+
+
 // Middleware
 app.use(cors({
-  origin: ['http://localhost:5000', 'https://senzacine.netlify.app']
+  origin: allowedOrigins,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
 }));
-
 
 app.use(bodyParser.json());
 
