@@ -5,17 +5,20 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const multer = require('multer');
+const path = require('path');
 
 const app = express();
-const PORT = process.env.PORT || 8080; // Railway usa 8080 por defecto
+const PORT = process.env.PORT || 8080;
 
+// Orígenes permitidos
 const allowedOrigins = [
   'http://127.0.0.1:5500',
   'http://localhost:5500',
   'https://senzacine.netlify.app'
 ];
 
-// Database connection
+// Conexión a la base de datos
 const pool = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -26,11 +29,11 @@ const pool = mysql.createPool({
   connectionLimit: 10,
   queueLimit: 0,
   ssl: {
-    rejectUnauthorized: false // Necesario para Railway
+    rejectUnauthorized: false
   }
 });
 
-// Middleware
+// Middlewares
 app.use(cors({
   origin: allowedOrigins,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
@@ -38,37 +41,84 @@ app.use(cors({
 }));
 
 app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Servir imágenes de la carpeta public/img
+app.use('/img', express.static(path.join(__dirname, 'public/img')));
 
 // JWT Secret
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 
-// Basic route
+// Ruta raíz
 app.get('/', (req, res) => {
   res.send('Cine Management System API');
 });
 
-// Ruta para obtener las películas
+// Obtener películas
 app.get('/api/movies', async (req, res) => {
   try {
     const [rows] = await pool.query('SELECT * FROM movies');
-
-    if (rows.length === 0) {
-      return res.status(200).json([]);  // Retorna un arreglo vacío si no hay películas
-    }
-
-    res.json(rows);
+    res.json(rows.length > 0 ? rows : []);
   } catch (err) {
     console.error('Error fetching movies:', err);
     res.status(500).json({ error: 'Error al obtener películas' });
   }
 });
 
-// Authentication routes
-app.post('/api/login', async (req, res) => {
-  // Login logic here
+
+// 💾 Configuración de subida de archivos (multer)
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, 'public/img'));
+  },
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname);
+    const uniqueName = `${Date.now()}-${Math.round(Math.random() * 1e9)}${ext}`;
+    cb(null, uniqueName);
+  }
+});
+const upload = multer({ storage });
+
+// Ruta para crear películas (con imagen)
+app.post('/api/movies', upload.single('image'), async (req, res) => {
+  try {
+    const {
+      title,
+      synopsis,
+      duration,
+      classification,
+      genre_id,
+      trailer_url,
+      release_date
+    } = req.body;
+
+    const image_url = req.file ? `/img/${req.file.filename}` : '';
+
+    const [result] = await pool.query(
+      `INSERT INTO movies 
+      (title, synopsis, duration, classification, genre_id, trailer_url, image_url, release_date, is_active, created_at, updated_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1, NOW(), NOW())`,
+      [title, synopsis, duration, classification, genre_id, trailer_url, image_url, release_date]
+    );
+
+    res.status(201).json({
+      message: 'Película guardada correctamente',
+      id: result.insertId
+    });
+  } catch (err) {
+    console.error('❌ Error al guardar película:', err);
+    res.status(500).json({ error: 'Error al guardar película' });
+  }
 });
 
-// SOLO UNA app.listen aquí
+
+// Login (a implementar)
+app.post('/api/login', async (req, res) => {
+  // Lógica de autenticación
+});
+
+
+// Iniciar servidor
 pool.getConnection()
   .then(conn => {
     console.log('✅ Conexión a la base de datos exitosa');

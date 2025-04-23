@@ -75,6 +75,60 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
   
+
+  function showAddMovieForm() {
+    const formContainer = document.getElementById('movie-form-container');
+    formContainer.innerHTML = `
+      <form id="movie-form">
+        <div class="form-group">
+          <label for="title">Título:</label>
+          <input type="text" id="title" required>
+        </div>
+        <div class="form-group">
+          <label for="classification">Clasificación:</label>
+          <input type="text" id="classification" required>
+        </div>
+        <div class="form-group">
+          <label for="duration">Duración (min):</label>
+          <input type="number" id="duration" required>
+        </div>
+        <div class="form-group">
+<label for="image">Imagen:</label>
+    <input type="file" id="image" name="image" accept="image/*" required>
+        </div>
+        <button type="submit">Guardar Película</button>
+      </form>
+    `;
+  
+    document.getElementById('movie-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('title', document.getElementById('title').value);
+        formData.append('classification', document.getElementById('classification').value);
+        formData.append('duration', document.getElementById('duration').value);
+        formData.append('image', document.getElementById('image').files[0]);
+      
+        try {
+          const response = await fetch('https://administraciondecine-gestion-de-cine.up.railway.app/api/movies', {
+            method: 'POST',
+            body: formData
+          });
+      
+          const data = await response.json();
+          if (response.ok) {
+            alert('Película agregada con éxito');
+            loadMoviesPage();
+          } else {
+            alert(data.error || 'Error al guardar la película');
+          }
+        } catch (error) {
+          console.error('Error al guardar película:', error);
+          alert('Error de conexión');
+        }
+      });
+      }
+  
+
   function loadMovieDetails(movieId) {
     // Implement movie details view
     console.log('Loading details for movie:', movieId);
@@ -86,12 +140,22 @@ document.addEventListener('DOMContentLoaded', () => {
       <section class="movies-management">
         <h2>Gestión de Películas</h2>
         <button id="add-movie-btn">Agregar Película</button>
-        <div class="movies-list" id="movies-list"></div>
+        <div id="movie-form-container"></div>
+        <div class="movies-grid" id="movies-grid"></div>
       </section>
     `;
-    
-    // Implement movie management functionality
+  
+    setTimeout(() => {
+        fetchMovies();
+      }, 0);
+      
+    // Mostrar formulario para nueva película
+    document.getElementById('add-movie-btn').addEventListener('click', () => {
+      showAddMovieForm();
+    });
   }
+    
+  
   
   function loadSchedulePage() {
     const mainContent = document.getElementById('main-content');
@@ -122,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   async function fetchScreenings(date) {
     try {
-      const response = await fetch(`http://localhost:5000/api/screenings?date=${date}`);
+      const response = await fetch(`https://administraciondecine-gestion-de-cine.up.railway.app/api/screenings?date=${date}`);
       const screenings = await response.json();
       displayScreenings(screenings);
     } catch (error) {
