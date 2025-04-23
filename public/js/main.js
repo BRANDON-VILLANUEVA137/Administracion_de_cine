@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   async function fetchMovies() {
     try {
-      const response = await fetch('http://localhost:5000/api/movies');
+        const response = await fetch('https://cine-api-production.up.railway.app/api/movies');
       const movies = await response.json();
       displayMovies(movies);
     } catch (error) {
