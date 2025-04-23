@@ -15,6 +15,20 @@ const allowedOrigins = [
   'https://senzacine.netlify.app'
 ];
 
+// Database connection
+const pool = mysql.createPool({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
+  ssl: {
+    rejectUnauthorized: false // Necesario para Railway
+  }
+});
 
 // Middleware
 app.use(cors({
@@ -33,36 +47,25 @@ app.get('/', (req, res) => {
   res.send('Cine Management System API');
 });
 
+// Ruta para obtener las películas
 app.get('/api/movies', async (req, res) => {
   try {
-    const [rows] = await pool.query('SELECT * FROM peliculas'); // Usa el nombre de tu tabla real
+    const [rows] = await pool.query('SELECT * FROM movies');
+
+    if (rows.length === 0) {
+      return res.status(200).json([]);  // Retorna un arreglo vacío si no hay películas
+    }
+
     res.json(rows);
   } catch (err) {
-    console.error(err);
+    console.error('Error fetching movies:', err);
     res.status(500).json({ error: 'Error al obtener películas' });
   }
 });
 
-
-
 // Authentication routes
 app.post('/api/login', async (req, res) => {
   // Login logic here
-});
-
-// Database connection
-const pool = mysql.createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  port: process.env.DB_PORT,
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
-  ssl: {
-    rejectUnauthorized: false // Necesario para Railway
-  }
 });
 
 // SOLO UNA app.listen aquí

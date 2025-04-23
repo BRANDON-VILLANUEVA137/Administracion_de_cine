@@ -42,9 +42,14 @@ document.addEventListener('DOMContentLoaded', () => {
   
   async function fetchMovies() {
     try {
-        const response = await fetch('https://cine-api-production.up.railway.app/api/movies');
+      const response = await fetch('https://administraciondecine-gestion-de-cine.up.railway.app/api/movies');
       const movies = await response.json();
-      displayMovies(movies);
+  
+      if (Array.isArray(movies)) {
+        displayMovies(movies);
+      } else {
+        console.error('La respuesta no es un arreglo:', movies);
+      }
     } catch (error) {
       console.error('Error fetching movies:', error);
     }
