@@ -45,3 +45,15 @@ app.post('/api/login', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+pool.getConnection()
+  .then(conn => {
+    console.log('✅ Conexión a la base de datos exitosa');
+    conn.release();
+    app.listen(PORT, () => {
+      console.log(`🚀 Servidor corriendo en el puerto ${PORT}`);
+    });
+  })
+  .catch(err => {
+    console.error('❌ Error al conectar con la base de datos:', err);
+  });
