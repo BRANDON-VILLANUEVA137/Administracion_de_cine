@@ -1,4 +1,4 @@
-  const API_BASE = 'https://red-de-empleo-production.up.railway.app';
+  const API_BASE = 'https://administraciondecine-gestion-de-cine.up.railway.app';
 
   async function cargarPeliculas() {
     try {
