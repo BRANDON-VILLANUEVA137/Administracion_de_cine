@@ -4,6 +4,7 @@
     try {
       const res = await fetch(`${API_BASE}/api/movies`);
       const peliculas = await res.json();
+      console.log('Respuesta del backend:', peliculas);
 
       const contenedor = document.querySelector('.movies-grid');
       contenedor.innerHTML = ''; // Limpia tarjetas fijas

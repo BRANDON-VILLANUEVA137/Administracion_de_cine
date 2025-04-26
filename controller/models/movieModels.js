@@ -3,7 +3,7 @@ const db = require('../../config/db');
 const Movie = {
   getAll: () => {
     return new Promise((resolve, reject) => {
-      db.query('SELECT * FROM movies', (err, results) => {
+      db.query('SELECT id, title, synopsis, duration, classification, genre_id, trailer_url, image_url, release_date, is_active, created_at, updated_at FROM movies', (err, results) => {
         if (err) reject(err);
         else resolve(results);
       });
