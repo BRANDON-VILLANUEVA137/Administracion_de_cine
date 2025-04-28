@@ -67,7 +67,7 @@ movieForm.addEventListener('submit', async (e) => {
     });
   } else {
     // Crear nueva película
-    await fetch(API_URL, {
+    await fetch(apiUrl + API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(movie)
