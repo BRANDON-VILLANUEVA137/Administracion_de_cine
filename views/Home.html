@@ -1,41 +1,44 @@
-<!-- views/movies.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Películas</title>
-  <link rel="stylesheet" href="/public/css/style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gestión de Películas 🎬</title>
+  <link rel="stylesheet" href="/public/css/style.css">
 </head>
 <body>
   <header>
-    <h1>CinePlus</h1>
-    <nav>
-      <ul>
-        <li><a href="/views/Home.html">Inicio</a></li>
-        <li><a href="/movies">Películas</a></li>
-        <li><a href="/schedule">Cartelera</a></li>
-        <li><a href="/login">Ingresar</a></li>
-      </ul>
-    </nav>
+    <h1>🎬 Cartelera de Películas</h1>
+    <button id="btnAgregar">Agregar Película</button>
   </header>
 
   <main>
-    <section class="hero">
-      <h2>Disfruta los últimos estrenos</h2>
-      <p>Explora nuestra cartelera actualizada y reserva tus entradas al instante</p>
+    <section id="formulario" class="oculto">
+      <h2 id="formTitle">Agregar Nueva Película</h2>
+      <form id="movieForm">
+        <input type="hidden" id="movieId">
+        <input type="text" id="title" placeholder="Título" required>
+        <textarea id="description" placeholder="Descripción" required></textarea>
+        <input type="number" id="duration" placeholder="Duración (minutos)" required>
+        <select id="rating" required>
+          <option value="">Clasificación</option>
+          <option value="G">G</option>
+          <option value="PG">PG</option>
+          <option value="PG-13">PG-13</option>
+          <option value="R">R</option>
+          <option value="NC-17">NC-17</option>
+        </select>
+        <input type="text" id="genre" placeholder="Género" required>
+        <input type="url" id="trailer_url" placeholder="URL del Tráiler">
+        <input type="url" id="image_url" placeholder="URL de la Imagen">
+        <button type="submit">Guardar</button>
+        <button type="button" id="cancelar">Cancelar</button>
+      </form>
     </section>
 
-    <section class="movies-grid">
-      <!-- Ejemplo de tarjeta de película -->
-
-      <!-- Más tarjetas aquí... -->
-    </section>
+    <section id="peliculas"></section>
   </main>
 
-  <footer>
-    <p>&copy; 2025 CinePlus. Todos los derechos reservados.</p>
-  </footer>
   <script src="/public/js/movies.js"></script>
 </body>
 </html>
