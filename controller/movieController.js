@@ -9,4 +9,6 @@ exports.getMovies = async (req, res) => {
     console.error('Error en getMovies:', error); // Aquí puedes ver el error real
     res.status(500).json({ error: `Error al obtener las películas: ${error.message}` });
   }
+
+
 };

@@ -7,7 +7,7 @@ const app = express();
 const movieRoutes = require('../controller/Routes/movieRoutes');
 
 const corsOptions = {
-  origin: ['http://127.0.0.1:5500', 'http://localhost:5500','https://senzacine.netlify.app'], // agrega más si lo necesitas
+  origin: [ 'http://localhost:5500','https://senzacine.netlify.app'], // agrega más si lo necesitas
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 };
