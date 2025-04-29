@@ -60,7 +60,7 @@ movieForm.addEventListener('submit', async (e) => {
 
   if (id) {
     // Actualizar película
-    await fetch(`${apiUrl}/${API_URL}/${id}`, {
+    await fetch(`${apiUrl}${API_URL}/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(movie)
@@ -80,7 +80,7 @@ movieForm.addEventListener('submit', async (e) => {
 
 // Editar película
 const editarPelicula = async (id) => {
-  const res = await fetch(`${API_URL}/${id}`);
+  const res = await fetch(`${apiUrl}${API_URL}/${id}`);
   const pelicula = await res.json();
 
   document.getElementById('movieId').value = pelicula.id;
@@ -99,7 +99,7 @@ const editarPelicula = async (id) => {
 // Eliminar película
 const eliminarPelicula = async (id) => {
   if (confirm('¿Estás seguro de eliminar esta película?')) {
-    await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+    await fetch(`${apiUrl}${API_URL}/${id}`, { method: 'DELETE' });
     cargarPeliculas();
   }
 };
