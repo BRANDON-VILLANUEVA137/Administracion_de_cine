@@ -9,6 +9,7 @@ const cancelar = document.getElementById('cancelar');
 const formTitle = document.getElementById('formTitle');
 const searchInput = document.getElementById('searchInput');
 const sortSelect = document.getElementById('sortSelect');
+const filtroLetras = document.getElementById('filtroLetras');
 
 
 //Filtro para busqueda
@@ -28,7 +29,7 @@ searchInput.addEventListener('input', () => {
   });
 });
 
-//Filtro para busqueda a-z
+//Filtro para ordenar a-z
 sortSelect.addEventListener('change', () => {
   const option = sortSelect.value;
   const peliculasArray = Array.from(peliculasContainer.children);
@@ -50,6 +51,29 @@ sortSelect.addEventListener('change', () => {
   peliculasArray.forEach(pelicula => peliculasContainer.appendChild(pelicula));
 });
 
+// Crear botones de A-Z
+const letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+letras.forEach(letra => {
+  const btn = document.createElement('button');
+  btn.textContent = letra;
+  btn.addEventListener('click', () => filtrarPorLetra(letra));
+  filtroLetras.appendChild(btn);
+});
+
+//Filtro para cada letra
+const filtrarPorLetra = (letra) => {
+  const peliculas = document.querySelectorAll('.pelicula');
+
+  peliculas.forEach(pelicula => {
+    const title = pelicula.querySelector('h3').textContent.toUpperCase();
+    
+    if (title.startsWith(letra)) {
+      pelicula.style.display = 'block';
+    } else {
+      pelicula.style.display = 'none';
+    }
+  });
+};
 
 
 // Mostrar formulario para agregar película

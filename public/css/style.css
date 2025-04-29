@@ -44,6 +44,51 @@ header button:hover {
   background: #16a34a;
 }
 
+.filtro-letras {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.filtro-letras button {
+  margin: 5px;
+  padding: 8px 12px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.filtro-letras button:hover {
+  background-color: #0056b3;
+}
+
+/* --- Barra de Búsqueda --- */
+#searchInput {
+  display: block;
+  margin: 20px auto;
+  padding: 12px 20px;
+  width: 80%;
+  max-width: 400px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* --- Select Ordenar --- */
+#sortSelect {
+  display: block;
+  margin: 10px auto 30px;
+  padding: 12px 20px;
+  width: 80%;
+  max-width: 400px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: white;
+}
+
 /* Main */
 main {
   padding: 2rem;
