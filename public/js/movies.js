@@ -7,6 +7,50 @@ const movieForm = document.getElementById('movieForm');
 const btnAgregar = document.getElementById('btnAgregar');
 const cancelar = document.getElementById('cancelar');
 const formTitle = document.getElementById('formTitle');
+const searchInput = document.getElementById('searchInput');
+const sortSelect = document.getElementById('sortSelect');
+
+
+//Filtro para busqueda
+searchInput.addEventListener('input', () => {
+  const query = searchInput.value.toLowerCase();
+  const peliculas = document.querySelectorAll('.pelicula');
+
+  peliculas.forEach(pelicula => {
+    const title = pelicula.querySelector('h3').textContent.toLowerCase();
+    const genre = pelicula.querySelector('p:nth-of-type(2)').textContent.toLowerCase();
+
+    if (title.includes(query) || genre.includes(query)) {
+      pelicula.style.display = 'block';
+    } else {
+      pelicula.style.display = 'none';
+    }
+  });
+});
+
+//Filtro para busqueda a-z
+sortSelect.addEventListener('change', () => {
+  const option = sortSelect.value;
+  const peliculasArray = Array.from(peliculasContainer.children);
+
+  peliculasArray.sort((a, b) => {
+    const titleA = a.querySelector('h3').textContent.toLowerCase();
+    const titleB = b.querySelector('h3').textContent.toLowerCase();
+
+    if (option === 'az') {
+      return titleA.localeCompare(titleB);
+    } else if (option === 'za') {
+      return titleB.localeCompare(titleA);
+    }
+    return 0;
+  });
+
+  // Limpiar y volver a agregar en orden
+  peliculasContainer.innerHTML = '';
+  peliculasArray.forEach(pelicula => peliculasContainer.appendChild(pelicula));
+});
+
+
 
 // Mostrar formulario para agregar película
 btnAgregar.addEventListener('click', () => {
