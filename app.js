@@ -1,63 +1,52 @@
-// Importaciones
+// Importaciones únicas al principio del archivo
 const db = require('./config/db');
 const express = require('express');
 const session = require('express-session');
 const dotenv = require('dotenv');
 const path = require('path');
 const movieRoutes = require('./Routes/movieRoutes');
-const authRoutes = require('./Routes/authRoutes');
 
+
+// Inicializar express
 const app = express();
+
+// Configurar dotenv
 dotenv.config();
 
-// Middleware: CORS
+// Middleware
 const cors = require('cors');
 
-const allowedOrigins = [
-  'http://localhost:5500',
-  'http://127.0.0.1:5500',
-  'http://localhost:3000',
-  'https://senzacine.netlify.app'
-];
-
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('No permitido por CORS'));
-    }
-  },
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-};
-
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions)); // Preflight
-
-// Sesiones
-app.use(express.json());
-
-app.use(session({
-  secret: 'cine_session_secret',
-  resave: false,
-  saveUninitialized: false
+// Configuración de CORS
+app.use(cors({
+  origin: 'http://127.0.0.1:5500',  // Permitir solo el dominio de tu frontend
+  origin: ['http://127.0.0.1:5500','https://senzacine.netlify.app'],   // Permitir solo el dominio de tu frontend
+methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Métodos permitidos
+allowedHeaders: ['Content-Type', 'Authorization']  // Cabeceras permitidas
 }));
 
+app.use(express.json());
+app.use(express.static('public')); // <- Para servir frontend
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
+
+// Sesiones
+app.use(session({
+secret: 'mi_secreto_super_seguro',
+resave: false,
+saveUninitialized: true,
+}));
+
+// Archivos estáticos
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Rutas
+// Rutas (ejemplo de ruta inicial)
 app.get('/', (req, res) => {
-  res.send('¡Bienvenido al sistema de gestión de cine!');
+res.send('¡Bienvenido al sistema de gestión de cine!');
 });
+
 app.use('/api/movies', movieRoutes);
-app.use('/auth', authRoutes);
 
 // Servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`🚀Servidor corriendo en http://localhost:${PORT}`);
+console.log(`🚀Servidor corriendo en http://localhost:${PORT}`);
 });

@@ -1,10 +1,10 @@
 const db = require('../config/db');
 
-const User = {
-  findByEmail: async (username) => {
-    const [rows] = await db.query('SELECT * FROM users WHERE email = ?', [username]);
-    return rows[0];
-  }
+const findUserByUsername = (username, callback) => {
+  const sql = 'SELECT * FROM users WHERE email = ?';
+  db.query(sql, [username], callback);
 };
 
-module.exports = User;
+module.exports = {
+  findUserByUsername
+};

@@ -1,30 +1,37 @@
-const apiUrl = 'https://administraciondecine-gestion-de-cine.up.railway.app';
+document.getElementById('loginForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
 
-document.getElementById('loginForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-  
-    const email = document.getElementById('email').value.trim();
-    const password = document.getElementById('password').value.trim();
-    const errorMsg = document.getElementById('errorMsg');
-  
-    try {
-      const res = await fetch(apiUrl + '/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include', // importante si usas cookies con sesiones
-        body: JSON.stringify({ email, password })
-      });
-  
-      const data = await res.json();
-  
-      if (res.ok) {
-        // Redirigir al home o sección protegida
-        window.location.href = '/peliculas';
-      } else {
-        errorMsg.textContent = data.message || 'Error al iniciar sesión';
-      }
-    } catch (error) {
-      errorMsg.textContent = 'Error de red. Intenta nuevamente.';
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+
+  console.log('Enviando login con:', email, password);
+
+  try {
+    const API_URL = window.location.hostname === 'localhost'
+      ? 'http://localhost:3000/auth/login'
+      : 'https://administraciondecine-gestion-de-cine.up.railway.app/auth/login';
+
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include',
+      body: JSON.stringify({ email, password })
+    });
+
+    const data = await res.json();
+    console.log('Respuesta del servidor:', data);
+
+    if (res.ok) {
+      alert(`Login exitoso. ID Usuario: ${data.userId}`);
+      window.location.href = '/views/Admin/Home.html';
+    } else {
+      alert(data.error || 'Credenciales incorrectas');
     }
-  });
-  
+
+  } catch (error) {
+    console.error('Error en fetch:', error);
+    alert('No se pudo conectar al servidor');
+  }
+});
