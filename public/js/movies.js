@@ -1,5 +1,5 @@
 const apiUrl = 'https://administraciondecine-gestion-de-cine.up.railway.app';
-
+;
 const API_URL = '/api/movies';
 const peliculasContainer = document.getElementById('peliculas');
 const formulario = document.getElementById('formulario');

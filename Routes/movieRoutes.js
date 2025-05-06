@@ -1,13 +1,7 @@
 // controllers/routes/moviesRoutes.js
 const express = require('express');
 const router = express.Router();
-// Rutas protegidas
-const { ensureAuthenticated } = require('../middlewares/authMiddleware');
 const Movie = require('../models/movieModel');
-
-//Protege las rutas de manera global:
-router.use(ensureAuthenticated);
-
 
 // Obtener todas las películas
 router.get('/', async (req, res) => {
