@@ -195,5 +195,5 @@ document.addEventListener('DOMContentLoaded', () => {
   carrusel.addEventListener('mouseleave', iniciarCarruselAutomatico);
 });
 document.getElementById('btnAgregar').addEventListener('click', () => {
-  window.location.href = 'https://senzacine.netlify.app/views/Login';
+  window.location.href = 'https://senzacine.netlify.app/views/login';
 });

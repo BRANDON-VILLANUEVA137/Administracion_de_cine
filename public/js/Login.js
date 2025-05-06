@@ -11,7 +11,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
   }
 
   try {
-    const response = await fetch('https://administraciondecine-gestion-de-cine.up.railway.app/login', {
+    const response = await fetch('https://administraciondecine-gestion-de-cine.up.railway.app/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
