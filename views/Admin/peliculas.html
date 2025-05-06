@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gestión de Películas 🎬</title>
+  <link rel="stylesheet" href="/public/css/style.css">
+</head>
+<body>
+    <div class="itemCarrusel">
+    <div class="tarjetaCarrusel"></div>
+    A
+    <div class="flechasCarrusel">
+        <i>I</i>
+        <i>D</i>
+    </div>
+    </div>
+  <header>
+    <h1>🎬 Cartelera de Películas</h1>
+    <button id="btnAgregar">inciar serion</button>
+  </header>
+
+  <main>
+
+    
+    <input type="text" id="searchInput" placeholder="Buscar por título o género...">
+    <div id="filtroLetras" class="filtro-letras"></div>
+
+    <select id="sortSelect">
+      <option value="">Ordenar</option>
+      <option value="az">A-Z</option>
+      <option value="za">Z-A</option>
+    </select>
+
+    
+    <section id="peliculas"></section>
+  </main>
+
+  <script src="/public/js/usuarui.js"></script>
+</body>
+</html>
