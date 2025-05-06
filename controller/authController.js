@@ -27,10 +27,10 @@ exports.login = async (req, res) => {
         redirectUrl = 'https://senzacine.netlify.app/views/Admin/Home';
         break;
       case 'cajero':
-        redirectUrl = 'https://senzacine.netlify.app/views/cajero/home';
+        redirectUrl = 'https://senzacine.netlify.app/views/Admin/Home';
         break;
       case 'cliente':
-        redirectUrl = 'https://senzacine.netlify.app/views/cliente/home';
+        redirectUrl = 'https://senzacine.netlify.app/views/Admin/Home';
         break;
     }
 
