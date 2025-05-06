@@ -24,7 +24,7 @@ exports.login = async (req, res) => {
 
     switch (user.role) {
       case 'admin':
-        redirectUrl = 'https://senzacine.netlify.app/views/admin/home';
+        redirectUrl = 'https://senzacine.netlify.app/views/Admin/Home';
         break;
       case 'cajero':
         redirectUrl = 'https://senzacine.netlify.app/views/cajero/home';
