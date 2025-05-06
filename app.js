@@ -1,11 +1,13 @@
-// Importaciones únicas al principio del archivo
-const db = require('./config/db');
+// Importaciones
 const express = require('express');
 const session = require('express-session');
 const dotenv = require('dotenv');
 const path = require('path');
-const movieRoutes = require('./Routes/movieRoutes');
+const cors = require('cors');
 
+const db = require('./config/db');
+const movieRoutes = require('./Routes/movieRoutes');
+const authRoutes = require('./Routes/authRoutes');
 
 // Inicializar express
 const app = express();
@@ -14,18 +16,17 @@ const app = express();
 dotenv.config();
 
 // Middleware
-const cors = require('cors');
-
-// Configuración de CORS
 app.use(cors({
-  origin: ['http://127.0.0.1:5500','https://senzacine.netlify.app'],   // Permitir solo el dominio de tu frontend
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Métodos permitidos
-  allowedHeaders: ['Content-Type', 'Authorization']  // Cabeceras permitidas
+  origin: ['http://127.0.0.1:5500', 'https://senzacine.netlify.app'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 app.use(express.json());
-app.use(express.static('public')); // <- Para servir frontend
 app.use(express.urlencoded({ extended: true }));
+
+// Archivos estáticos (HTML, CSS, JS del frontend)
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Sesiones
 app.use(session({
@@ -34,18 +35,22 @@ app.use(session({
   saveUninitialized: true,
 }));
 
-// Archivos estáticos
-app.use(express.static(path.join(__dirname, 'public')));
+// Ruta para servir login.html directamente desde /views
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'login.html'));
+});
 
-// Rutas (ejemplo de ruta inicial)
+// Rutas
+app.use('/api/movies', movieRoutes);
+app.use(authRoutes); // Aquí se maneja POST /login
+
+// Ruta raíz opcional
 app.get('/', (req, res) => {
   res.send('¡Bienvenido al sistema de gestión de cine!');
 });
 
-app.use('/api/movies', movieRoutes);
-
 // Servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`🚀Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
 });
