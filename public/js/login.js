@@ -25,7 +25,7 @@ document.getElementById('loginForm').addEventListener('submit', async function (
 
     if (res.ok) {
       alert(`Login exitoso. ID Usuario: ${data.userId}`);
-      window.location.href = 'https://senzacine.netlify.app/views/admin/home';
+      window.location.href = '/views/Admin/home';
     } else {
       alert(data.error || 'Credenciales incorrectas');
     }
