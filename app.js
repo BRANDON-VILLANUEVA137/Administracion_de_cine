@@ -6,7 +6,6 @@ const dotenv = require('dotenv');
 const path = require('path');
 const movieRoutes = require('./Routes/movieRoutes');
 
-
 // Inicializar express
 const app = express();
 
@@ -18,13 +17,13 @@ const cors = require('cors');
 
 // Configuración de CORS
 app.use(cors({
-  origin: ['http://127.0.0.1:5500','https://senzacine.netlify.app'],   // Permitir solo el dominio de tu frontend
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Métodos permitidos
-  allowedHeaders: ['Content-Type', 'Authorization']  // Cabeceras permitidas
+  origin: ['http://127.0.0.1:5500', 'https://senzacine.netlify.app'], // Permitir solo el dominio de tu frontend
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
+  allowedHeaders: ['Content-Type', 'Authorization'], // Cabeceras permitidas
 }));
 
 app.use(express.json());
-app.use(express.static('public')); // <- Para servir frontend
+app.use(express.static('public')); // Para servir el frontend
 app.use(express.urlencoded({ extended: true }));
 
 // Sesiones
