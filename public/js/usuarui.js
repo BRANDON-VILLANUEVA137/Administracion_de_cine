@@ -3,7 +3,6 @@ const API_URL = '/api/movies';
 const peliculasContainer = document.getElementById('peliculas');
 const formulario = document.getElementById('formulario');
 const movieForm = document.getElementById('movieForm');
-const Login = document.getElementById('btnAgregar');
 const cancelar = document.getElementById('cancelar');
 const formTitle = document.getElementById('formTitle');
 const searchInput = document.getElementById('searchInput');
@@ -195,6 +194,6 @@ document.addEventListener('DOMContentLoaded', () => {
   carrusel.addEventListener('mouseenter', detenerCarruselAutomatico);
   carrusel.addEventListener('mouseleave', iniciarCarruselAutomatico);
 });
-document.getElementById('Login').addEventListener('click', () => {
+document.getElementById('btnAgregar').addEventListener('click', () => {
   window.location.href = 'https://senzacine.netlify.app/views/Login';
 });
