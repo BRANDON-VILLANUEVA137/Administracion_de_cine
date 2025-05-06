@@ -19,7 +19,8 @@ dotenv.config();
 app.use(cors({
   origin: ['http://127.0.0.1:5500', 'https://senzacine.netlify.app'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true // <-- ESTO ES CLAVE
 }));
 
 app.use(express.json());
@@ -33,6 +34,10 @@ app.use(session({
   secret: 'mi_secreto_super_seguro',
   resave: false,
   saveUninitialized: true,
+  cookie: {
+    secure: true,           // true si Railway usa HTTPS
+    sameSite: 'none'        // necesario para cookies en CORS
+  }
 }));
 
 // Ruta para servir login.html directamente desde /views
