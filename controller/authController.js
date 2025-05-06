@@ -2,13 +2,15 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/userModel');
 
 const login = async (req, res) => {
-  const { username, password } = req.body;
+  console.log('BODY RECIBIDO:', req.body); // ✅ Útil para debugging
 
-  if (!username || !password) {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
     return res.status(400).json({ error: 'Faltan datos' });
   }
 
-  User.findUserByUsername(username, async (err, results) => {
+  User.findUserByEmail(email, async (err, results) => { // 👈 asegúrate que esta función exista
     if (err) {
       console.error('Error en el servidor:', err);
       return res.status(500).json({ error: 'Error en el servidor' });

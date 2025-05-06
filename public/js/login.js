@@ -19,13 +19,13 @@ document.getElementById('loginForm').addEventListener('submit', async function (
       credentials: 'include',
       body: JSON.stringify({ email, password })
     });
-
+    
     const data = await res.json();
     console.log('Respuesta del servidor:', data);
 
     if (res.ok) {
       alert(`Login exitoso. ID Usuario: ${data.userId}`);
-      window.location.href = '/views/Admin/Home.html';
+      window.location.href = 'https://senzacine.netlify.app/views/admin/home';
     } else {
       alert(data.error || 'Credenciales incorrectas');
     }
