@@ -15,23 +15,33 @@ dotenv.config();
 // Middleware
 const cors = require('cors');
 
-// Configuración de CORS
+const allowedOrigins = [
+  'http://127.0.0.1:5500',
+  'http://localhost:5500',
+  'https://senzacine.netlify.app'
+];
+
 app.use(cors({
-  origin: ['http://127.0.0.1:5500', 'https://senzacine.netlify.app'], // Permitir solo el dominio de tu frontend
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
-  allowedHeaders: ['Content-Type', 'Authorization'], // Cabeceras permitidas
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('No permitido por CORS'));
+    }
+  },
+  credentials: true
 }));
 
-app.use(express.json());
-app.use(express.static('public')); // Para servir el frontend
-app.use(express.urlencoded({ extended: true }));
-
-// Sesiones
 app.use(session({
   secret: 'mi_secreto_super_seguro',
   resave: false,
   saveUninitialized: true,
+  cookie: {
+    secure: false, // usa true si estás en HTTPS
+    sameSite: 'lax'
+  }
 }));
+
 
 // Archivos estáticos
 app.use(express.static(path.join(__dirname, 'public')));
