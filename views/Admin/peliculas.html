@@ -5,24 +5,126 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Gestión de Películas 🎬</title>
   <link rel="stylesheet" href="/public/css/style.css">
+  <style>
+    /* Estilos del carrusel */
+    .carrusel {
+      position: relative;
+      width: 100%;
+      max-width: 1000px;
+      margin: 20px auto;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+    }
+
+    .carrusel-items {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      width: 100%;
+    }
+
+    .itemCarrusel {
+      min-width: 100%;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    .tarjetaCarrusel {
+      width: 100%;
+      height: 400px;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .flechasCarrusel {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      padding: 0 15px;
+      box-sizing: border-box;
+    }
+
+    .flechasCarrusel i {
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      font-size: 18px;
+      transition: background-color 0.3s;
+      font-style: normal;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .flechasCarrusel i:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    /* Animación automática */
+    .carrusel-items {
+      animation: slide 20s infinite;
+    }
+
+    .carrusel:hover .carrusel-items {
+      animation-play-state: paused;
+    }
+
+    @keyframes slide {
+      0% { transform: translateX(0); }
+      20% { transform: translateX(0); }
+      25% { transform: translateX(-100%); }
+      45% { transform: translateX(-100%); }
+      50% { transform: translateX(-200%); }
+      70% { transform: translateX(-200%); }
+      75% { transform: translateX(-300%); }
+      95% { transform: translateX(-300%); }
+      100% { transform: translateX(0); }
+    }
+  </style>
 </head>
 <body>
-    <div class="itemCarrusel">
-    <div class="tarjetaCarrusel"></div>
-    A
-    <div class="flechasCarrusel">
-        <i>I</i>
-        <i>D</i>
-    </div>
-    </div>
   <header>
     <h1>🎬 Cartelera de Películas</h1>
-    <button id="btnAgregar">inciar serion</button>
+    <button id="btnAgregar">Iniciar sesión</button>
   </header>
 
   <main>
+    <!-- Carrusel de películas destacadas -->
+    <div class="carrusel">
+      <div class="carrusel-items">
+        <div class="itemCarrusel">
+          <div class="tarjetaCarrusel" style="background-image: url('https://via.placeholder.com/1000x400?text=Estreno+1');"></div>
+          <div class="flechasCarrusel">
+            <i>‹</i>
+            <i>›</i>
+          </div>
+        </div>
+        <div class="itemCarrusel">
+          <div class="tarjetaCarrusel" style="background-image: url('https://via.placeholder.com/1000x400?text=Estreno+2');"></div>
+          <div class="flechasCarrusel">
+            <i>‹</i>
+            <i>›</i>
+          </div>
+        </div>
+        <div class="itemCarrusel">
+          <div class="tarjetaCarrusel" style="background-image: url('https://via.placeholder.com/1000x400?text=Estreno+3');"></div>
+          <div class="flechasCarrusel">
+            <i>‹</i>
+            <i>›</i>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    
+    <!-- Barra de búsqueda y filtros -->
     <input type="text" id="searchInput" placeholder="Buscar por título o género...">
     <div id="filtroLetras" class="filtro-letras"></div>
 
@@ -32,7 +134,7 @@
       <option value="za">Z-A</option>
     </select>
 
-    
+    <!-- Listado de películas -->
     <section id="peliculas"></section>
   </main>
 
