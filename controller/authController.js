@@ -3,6 +3,8 @@ const bcrypt = require('bcryptjs');
 const db = require('../config/db');
 
 exports.login = async (req, res) => {
+  console.log('Datos recibidos en login:', req.body); // <-- Agrega esto
+
   const { email, password } = req.body;
 
   try {
