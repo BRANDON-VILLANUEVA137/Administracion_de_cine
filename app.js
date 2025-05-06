@@ -5,6 +5,7 @@ const session = require('express-session');
 const dotenv = require('dotenv');
 const path = require('path');
 const movieRoutes = require('./Routes/movieRoutes');
+const authRoutes = require('./Routes/authRoutes');
 
 // Inicializar express
 const app = express();
@@ -52,6 +53,8 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/movies', movieRoutes);
+app.use('/auth', authRoutes);
+
 
 // Servidor
 const PORT = process.env.PORT || 3000;
