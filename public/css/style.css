@@ -108,7 +108,7 @@ header button:hover {
 
 /* Animación automática del carrusel */
 .carrusel-items {
-  animation: slide 25s infinite;
+  animation: slide 4s infinite;
 }
 
 .carrusel:hover .carrusel-items {
