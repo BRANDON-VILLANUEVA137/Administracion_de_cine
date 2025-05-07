@@ -4,96 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Gestión de Películas 🎬</title>
-  <link rel="stylesheet" href="/public/css/style.css">
-  <style>
-    /* Estilos del carrusel */
-    .carrusel {
-      position: relative;
-      width: 100%;
-      max-width: 1000px;
-      margin: 20px auto;
-      overflow: hidden;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-      border-radius: 8px;
-    }
+  <link rel="stylesheet" href="/public/css/usuario.css">
 
-    .carrusel-items {
-      display: flex;
-      transition: transform 0.5s ease-in-out;
-      width: 100%;
-    }
-
-    .itemCarrusel {
-      min-width: 100%;
-      box-sizing: border-box;
-      position: relative;
-    }
-
-    .tarjetaCarrusel {
-      width: 100%;
-      height: 400px;
-      background-size: cover;
-      background-position: center;
-    }
-
-    .flechasCarrusel {
-      position: absolute;
-      top: 50%;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      transform: translateY(-50%);
-      padding: 0 15px;
-      box-sizing: border-box;
-    }
-
-    .flechasCarrusel i {
-      background-color: rgba(0, 0, 0, 0.5);
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      cursor: pointer;
-      font-size: 18px;
-      transition: background-color 0.3s;
-      font-style: normal;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .flechasCarrusel i:hover {
-      background-color: rgba(0, 0, 0, 0.8);
-    }
-
-    /* Animación automática */
-    .carrusel-items {
-      animation: slide 20s infinite;
-    }
-
-    .carrusel:hover .carrusel-items {
-      animation-play-state: paused;
-    }
-
-    @keyframes slide {
-      0% { transform: translateX(0); }
-      20% { transform: translateX(0); }
-      25% { transform: translateX(-100%); }
-      45% { transform: translateX(-100%); }
-      50% { transform: translateX(-200%); }
-      70% { transform: translateX(-200%); }
-      75% { transform: translateX(-300%); }
-      95% { transform: translateX(-300%); }
-      100% { transform: translateX(0); }
-    }
-  </style>
 </head>
 <body>
   <header>
     <h1>🎬 Cartelera de Películas</h1>
     <button id="btnAgregar">Iniciar sesión</button>
+    <button id="modo-btn">Cambiar modo</button>
+
   </header>
 
   <main>
@@ -138,6 +57,13 @@
     <section id="peliculas"></section>
   </main>
 
+  <div id="modalTrailer" class="modal">
+    <div class="modal-content">
+      <span class="cerrar">&times;</span>
+      <iframe id="trailerFrame" width="100%" height="400" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>
+  
   <script src="/public/js/usuarui.js"></script>
 </body>
 </html>

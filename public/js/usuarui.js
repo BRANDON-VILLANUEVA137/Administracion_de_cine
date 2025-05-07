@@ -93,7 +93,9 @@ const cargarPeliculas = async () => {
       <p><strong>Duración:</strong> ${pelicula.duration} min</p>
       <p><strong>Género:</strong> ${pelicula.genre}</p>
       <p><strong>Clasificación:</strong> ${pelicula.rating}</p>
+      <button onclick="verTrailer('${pelicula.trailer_url}')">Ver Trailer</button>
       <p>${pelicula.description}</p>
+
     `;
     peliculasContainer.appendChild(div);
   });
@@ -194,6 +196,58 @@ document.addEventListener('DOMContentLoaded', () => {
   carrusel.addEventListener('mouseenter', detenerCarruselAutomatico);
   carrusel.addEventListener('mouseleave', iniciarCarruselAutomatico);
 });
+
+
+const modal = document.getElementById('modalTrailer');
+const iframe = document.getElementById('trailerFrame');
+const cerrar = document.querySelector('.cerrar');
+
+const verTrailer = (url) => {
+  if (!url) return alert("Esta película no tiene trailer disponible.");
+
+  // Si es un enlace de YouTube en formato watch?v=, lo convertimos a embed
+  if (url.includes("watch?v=")) {
+    const videoId = url.split("watch?v=")[1].split("&")[0]; // toma solo el ID del video
+    url = `https://www.youtube.com/embed/${videoId}`;
+  }
+
+  // También aceptamos enlaces cortos tipo youtu.be
+  if (url.includes("youtu.be/")) {
+    const videoId = url.split("youtu.be/")[1].split("?")[0];
+    url = `https://www.youtube.com/embed/${videoId}`;
+  }
+
+  document.getElementById('trailerFrame').src = url;
+  document.getElementById('modalTrailer').style.display = 'flex';
+};
+cerrar.addEventListener('click', () => {
+  modal.style.display = 'none';
+  iframe.src = ''; // Limpia el iframe para que el video se detenga
+});
+window.addEventListener('click', (e) => {
+  if (e.target === modal) {
+    modal.style.display = 'none';
+    iframe.src = '';
+  }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const body = document.body;
+  const modoBtn = document.getElementById('modo-btn');
+
+  // Cargar preferencia del usuario
+  if (localStorage.getItem('modo') === 'oscuro') {
+    body.classList.add('dark-mode');
+  }
+
+  modoBtn.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    const modoActual = body.classList.contains('dark-mode') ? 'oscuro' : 'claro';
+    localStorage.setItem('modo', modoActual);
+  });
+});
+
 document.getElementById('btnAgregar').addEventListener('click', () => {
   window.location.href = 'https://senzacine.netlify.app/views/login';
 });
+

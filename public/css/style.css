@@ -8,8 +8,8 @@
 /* Estilos generales */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #f0f2f5;
-  color: #333;
+  background: #121212; /* Fondo oscuro */
+  color: #ffffff; /* Texto blanco */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -17,114 +17,34 @@ body {
 
 /* Header */
 header {
-  background: #4f46e5;
+  background: #1f1f1f; /* Fondo del header */
   color: white;
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 header h1 {
-  font-size: 1.8rem;
+  font-size: 2rem;
+  text-shadow: 0 0 5px rgba(255, 0, 71, 0.5); /* Sombra de texto */
 }
 
 header button {
-  background: #22c55e;
+  background: #ff0047; /* Color del botón */
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 8px;
   font-size: 1rem;
   color: white;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background 0.3s, transform 0.3s;
 }
 
 header button:hover {
-  background: #16a34a;
-}
-
-/* --- Carrusel de Películas --- */
-.carrusel {
-  position: relative;
-  width: 100%;
-  max-width: 1200px;
-  margin: 2rem auto;
-  overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-}
-
-.carrusel-items {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-  height: 500px;
-}
-
-.itemCarrusel {
-  min-width: 100%;
-  position: relative;
-}
-
-.tarjetaCarrusel {
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.flechasCarrusel {
-  position: absolute;
-  top: 50%;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  transform: translateY(-50%);
-  padding: 0 20px;
-}
-
-.flechasCarrusel i {
-  background-color: rgba(79, 70, 229, 0.7);
-  color: white;
-  border: none;
-  padding: 15px;
-  cursor: pointer;
-  font-size: 24px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 50px;
-  height: 50px;
-  transition: all 0.3s;
-  font-style: normal;
-}
-
-.flechasCarrusel i:hover {
-  background-color: rgba(79, 70, 229, 0.9);
-  transform: scale(1.1);
-}
-
-/* Animación automática del carrusel */
-.carrusel-items {
-  animation: slide 4s infinite;
-}
-
-.carrusel:hover .carrusel-items {
-  animation-play-state: paused;
-}
-
-@keyframes slide {
-  0% { transform: translateX(0); }
-  20% { transform: translateX(0); }
-  25% { transform: translateX(-100%); }
-  45% { transform: translateX(-100%); }
-  50% { transform: translateX(-200%); }
-  70% { transform: translateX(-200%); }
-  75% { transform: translateX(-300%); }
-  95% { transform: translateX(-300%); }
-  100% { transform: translateX(0); }
+  background: #ff6f91; /* Color del botón al pasar el mouse */
+  transform: scale(1.05); /* Efecto de escala al pasar el mouse */
 }
 
 /* --- Barra de Búsqueda --- */
@@ -135,8 +55,15 @@ header button:hover {
   width: 80%;
   max-width: 400px;
   font-size: 16px;
-  border: 1px solid #ccc;
+  border: 1px solid #444; /* Borde más oscuro */
   border-radius: 6px;
+  background: #1f1f1f; /* Fondo oscuro */
+  color: #ffffff; /* Texto blanco */
+  transition: border 0.3s;
+}
+
+#searchInput:focus {
+  border: 1px solid #ff0047; /* Borde al enfocar */
 }
 
 /* --- Select Ordenar --- */
@@ -147,9 +74,15 @@ header button:hover {
   width: 80%;
   max-width: 400px;
   font-size: 16px;
-  border: 1px solid #ccc;
+  border: 1px solid #444; /* Borde más oscuro */
   border-radius: 6px;
-  background-color: white;
+  background-color: #1f1f1f; /* Fondo oscuro */
+  color: #ffffff; /* Texto blanco */
+  transition: border 0.3s;
+}
+
+#sortSelect:focus {
+  border: 1px solid #ff0047; /* Borde al enfocar */
 }
 
 /* Filtro de letras */
@@ -162,15 +95,16 @@ header button:hover {
   margin: 5px;
   padding: 8px 12px;
   border: none;
-  background-color: #007bff;
+  background-color: #007bff; /* Color del botón */
   color: white;
   cursor: pointer;
   border-radius: 4px;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 .filtro-letras button:hover {
-  background-color: #0056b3;
+  background-color: #0056b3; /* Color al pasar el mouse */
+  transform: scale(1.05); /* Efecto de escala al pasar el mouse */
 }
 
 /* Main */
@@ -181,15 +115,16 @@ main {
 
 /* Formulario */
 #formulario {
-  background: white;
+  background: #1f1f1f; /* Fondo oscuro */
   padding: 2rem;
   margin-bottom: 2rem;
   border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 #formulario h2 {
   margin-bottom: 1rem;
+  color: #ff0047; /* Color del título */
 }
 
 #formulario form {
@@ -201,25 +136,43 @@ main {
 #formulario textarea,
 #formulario select {
   padding: 0.8rem;
-  border: 1px solid #ccc;
+  border: 1px solid #444; /* Borde más oscuro */
+  border-radius:20px}
+  #formulario input,
+#formulario textarea,
+#formulario select {
+  padding: 0.8rem;
+  border: 1px solid #444; /* Borde más oscuro */
   border-radius: 8px;
   font-size: 1rem;
   width: 100%;
+  background-color: #121212; /* Fondo oscuro para campos */
+  color: #eee; /* Texto claro */
+  transition: border 0.3s, box-shadow 0.3s;
+}
+
+#formulario input:focus,
+#formulario textarea:focus,
+#formulario select:focus {
+  border-color: #ff0047;
+  box-shadow: 0 0 5px #ff0047;
+  outline: none;
 }
 
 #formulario button[type="submit"] {
-  background: #3b82f6;
+  background: #ff0047;
   border: none;
   padding: 0.8rem;
   border-radius: 8px;
   color: white;
   font-size: 1rem;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background 0.3s, transform 0.3s;
 }
 
 #formulario button[type="submit"]:hover {
-  background: #2563eb;
+  background: #ff6f91;
+  transform: scale(1.05);
 }
 
 #cancelar {
@@ -230,11 +183,12 @@ main {
   color: white;
   font-size: 1rem;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background 0.3s, transform 0.3s;
 }
 
 #cancelar:hover {
   background: #ef4444;
+  transform: scale(1.05);
 }
 
 /* Oculto */
@@ -250,20 +204,21 @@ main {
 }
 
 .pelicula {
-  background: white;
+  background: #1f1f1f; /* Fondo oscuro */
   border-radius: 12px;
   padding: 1rem;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(255, 0, 71, 0.3);
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
 }
 
 .pelicula:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(255, 0, 71, 0.6);
 }
 
 .pelicula img {
@@ -272,16 +227,23 @@ main {
   object-fit: cover;
   border-radius: 8px;
   margin-bottom: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.pelicula:hover img {
+  transform: scale(1.05);
 }
 
 .pelicula h3 {
   margin-bottom: 0.5rem;
-  color: #4f46e5;
+  color: #ff0047;
+  text-shadow: 0 0 6px rgba(255, 0, 71, 0.7);
 }
 
 .pelicula p {
   margin-bottom: 0.5rem;
   font-size: 0.95rem;
+  color: #ddd;
 }
 
 .pelicula button {
@@ -293,11 +255,12 @@ main {
   font-size: 0.9rem;
   color: white;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background 0.3s, transform 0.3s;
 }
 
 .pelicula button:hover {
   background: #06b6d4;
+  transform: scale(1.05);
 }
 
 .pelicula button + button {
@@ -307,6 +270,7 @@ main {
 
 .pelicula button + button:hover {
   background: #ef4444;
+  transform: scale(1.05);
 }
 
 /* Responsive Design */

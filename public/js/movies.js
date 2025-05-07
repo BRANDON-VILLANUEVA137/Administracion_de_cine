@@ -99,16 +99,17 @@ const cargarPeliculas = async () => {
     const div = document.createElement('div');
     div.classList.add('pelicula');
     div.innerHTML = `
-      <h3>${pelicula.title}</h3>
-      <img src="${pelicula.image_url}" alt="${pelicula.title}">
-      <p><strong>Duración:</strong> ${pelicula.duration} min</p>
-      <p><strong>Género:</strong> ${pelicula.genre}</p>
-      <p><strong>Clasificación:</strong> ${pelicula.rating}</p>
-      <p>${pelicula.description}</p>
-      <button onclick="editarPelicula(${pelicula.id})">Editar</button>
-      <button onclick="eliminarPelicula(${pelicula.id})">Eliminar</button>
-    `;
-    peliculasContainer.appendChild(div);
+  <h3>${pelicula.title}</h3>
+  <img src="${pelicula.image_url}" alt="${pelicula.title}">
+  <p><strong>Duración:</strong> ${pelicula.duration} min</p>
+  <p><strong>Género:</strong> ${pelicula.genre}</p>
+  <p><strong>Clasificación:</strong> ${pelicula.rating}</p>
+  <p>${pelicula.description}</p>
+  <button onclick="editarPelicula(${pelicula.id})">Editar</button>
+  <button onclick="eliminarPelicula(${pelicula.id})">Eliminar</button>
+  <button onclick="verTrailer('${pelicula.trailer_url}')">Ver Trailer</button>
+`;
+peliculasContainer.appendChild(div);
   });
 };
 
@@ -172,6 +173,16 @@ const eliminarPelicula = async (id) => {
     cargarPeliculas();
   }
 };
+
+
+const verTrailer = (url) => {
+  if (!url) {
+    alert("Esta película no tiene trailer disponible.");
+    return;
+  }
+  window.open(url, '_blank');
+};
+
 
 // Inicializar
 cargarPeliculas();

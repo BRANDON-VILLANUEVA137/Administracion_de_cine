@@ -1,20 +1,209 @@
+/* Import Google Fonts - 'Montserrat' for modern cinematic style */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
-    font-family: sans-serif;
-    background: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+  height: 100vh;
+  background: radial-gradient(circle at top left, #0b0c10, #1f2833);
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 20px;
+  color: #eee;
+}
+
+form#loginForm {
+  background: rgba(15, 15, 15, 0.85);
+  border-radius: 20px;
+  padding: 40px 35px;
+  width: 100%;
+  max-width: 350px;
+  box-shadow:
+    0 0 15px 3px #ff0047,
+    inset 0 0 30px 4px #ff0047;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  animation: slideUpFade 0.7s ease forwards;
+}
+
+/* Floating decorative film icons in background */
+form#loginForm::before {
+  content: "🎬 ✨ 🎥 📽️ 🎞️ 🍿";
+  position: absolute;
+  top: -10px;
+  right: -60px;
+  font-size: 44px;
+  color: rgba(255, 0, 71, 0.15);
+  animation: floatCinemaIcons 8s ease-in-out infinite;
+  user-select: none;
+  pointer-events: none;
+  text-shadow: 0 0 6px rgba(255, 0, 71, 0.4);
+}
+
+h2 {
+  text-align: center;
+  font-weight: 700;
+  font-size: 28px;
+  margin-bottom: 32px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #ff0047;
+  text-shadow: 0 0 8px #ff0047, 0 0 20px #ff0047;
+  user-select: none;
+}
+
+/* Input styles with icon-like placeholders using unicode */
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 16px 16px 16px 44px;
+  margin-bottom: 24px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  font-weight: 400;
+  background: rgba(255, 255, 255, 0.25);
+  color: white;
+  letter-spacing: 0.5px;
+  box-shadow: inset 0 2px 6px rgba(255,255,255,0.15);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.input-wrapper {
+  position: relative;
+  margin-bottom: 28px;
+  width: 100%;
+}
+
+.input-wrapper input {
+  width: 100%;
+  padding: 16px 50px 16px 50px;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+  background: #121314;
+  color: #eee;
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  box-shadow: inset 0 2px 6px rgba(255, 0, 71, 0.3);
+  transition: 0.3s ease all;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.input-wrapper input::placeholder {
+  color: #bb3b6f;
+  letter-spacing: 0.5px;
+}
+
+.input-wrapper input:focus {
+  box-shadow:
+    0 0 8px 2px #ff0047,
+    inset 0 0 14px 3px #ff0047;
+  background: #1c1b1d;
+  transition: 0.3s ease all;
+}
+
+.input-wrapper .icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  color: #ff0047;
+  text-shadow: 0 0 6px #ff0047;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Button */
+button {
+  width: 100%;
+  padding: 16px 0;
+  border-radius: 18px;
+  border: none;
+  font-weight: 700;
+  font-size: 20px;
+  background: linear-gradient(45deg, #ff0047, #ff6f91);
+  color: #eee;
+  cursor: pointer;
+  box-shadow:
+    0 8px 25px rgba(255, 0, 71, 0.75);
+  letter-spacing: 2px;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  user-select: none;
+  text-transform: uppercase;
+}
+
+button:hover {
+  background: linear-gradient(45deg, #ff6f91, #ff0047);
+  transform: scale(1.05);
+  box-shadow:
+    0 12px 35px rgba(255, 0, 71, 0.9);
+}
+
+button:active {
+  transform: scale(0.95);
+  box-shadow:
+    0 6px 18px rgba(255, 0, 71, 0.5);
+}
+
+/* Animations */
+@keyframes slideUpFade {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
   }
-  form {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
-  input {
-    display: block;
-    margin: 10px 0;
+}
+
+@keyframes floatCinemaIcons {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(16px, 14px);
+  }
+}
+
+/* Responsive for mobile */
+@media (max-width: 400px) {
+  form#loginForm {
+    padding: 30px 25px;
+  }
+  h2 {
+    font-size: 24px;
+  }
+  input.input-wrapper input,
+  button {
+    font-size: 16px;
+    padding: 14px 0;
+  }
+}
+
+/* Ensuring max 600px height and 350px width fits well */
+@media (max-height: 600px) {
+  body {
     padding: 8px;
-    width: 100%;
   }
-  
+  form#loginForm {
+    padding: 30px 22px;
+  }
+  input.input-wrapper input,
+  button {
+    padding: 12px 0;
+  }
+}
