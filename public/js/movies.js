@@ -164,6 +164,9 @@ const editarPelicula = async (id) => {
 
   formulario.classList.remove('oculto');
   formTitle.textContent = "Editar Película";
+
+    // Hacer scroll al formulario
+    formulario.scrollIntoView({ behavior: 'smooth' });
 };
 
 // Eliminar película
