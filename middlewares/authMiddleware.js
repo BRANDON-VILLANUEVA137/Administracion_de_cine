@@ -1,5 +1,5 @@
 // middlewares/authMiddleware.js
-exports.ensureAuthenticated = (req, res, next) => {
+/*exports.ensureAuthenticated = (req, res, next) => {
     if (req.session && req.session.user) {
       return next();
     }
@@ -14,4 +14,4 @@ exports.ensureAuthenticated = (req, res, next) => {
       res.status(403).json({ message: 'Acceso denegado. Rol insuficiente.' });
     };
   };
-  
+  */

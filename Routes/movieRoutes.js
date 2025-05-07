@@ -4,8 +4,9 @@ const router = express.Router();
 const Movie = require('../models/movieModel');
 const { ensureAuthenticated, ensureRole } = require('../middlewares/authMiddleware');
 
-// Obtener todas las películas (accesible para usuarios logueados)
-router.get('/', ensureAuthenticated, async (req, res) => {
+
+// Obtener todas las películas
+router.get('/', async (req, res) => {
   try {
     const movies = await Movie.getAll();
     res.json(movies);
@@ -14,8 +15,8 @@ router.get('/', ensureAuthenticated, async (req, res) => {
   }
 });
 
-// Obtener una película por ID (accesible para usuarios logueados)
-router.get('/:id', ensureAuthenticated, async (req, res) => {
+// Obtener una película por ID
+router.get('/:id', async (req, res) => {
   try {
     const movie = await Movie.getById(req.params.id);
     res.json(movie);
@@ -24,8 +25,8 @@ router.get('/:id', ensureAuthenticated, async (req, res) => {
   }
 });
 
-// Crear una nueva película (solo admin)
-router.post('/', ensureAuthenticated, ensureRole('admin'), async (req, res) => {
+// Crear una nueva película
+router.post('/', async (req, res) => {
   try {
     const movieId = await Movie.create(req.body);
     res.status(201).json({ id: movieId, message: 'Película creada' });
@@ -34,8 +35,8 @@ router.post('/', ensureAuthenticated, ensureRole('admin'), async (req, res) => {
   }
 });
 
-// Actualizar una película existente (solo admin)
-router.put('/:id', ensureAuthenticated, ensureRole('admin'), async (req, res) => {
+// Actualizar una película existente
+router.put('/:id', async (req, res) => {
   try {
     await Movie.update(req.params.id, req.body);
     res.json({ message: 'Película actualizada' });
@@ -44,8 +45,8 @@ router.put('/:id', ensureAuthenticated, ensureRole('admin'), async (req, res) =>
   }
 });
 
-// Eliminar una película (solo admin)
-router.delete('/:id', ensureAuthenticated, ensureRole('admin'), async (req, res) => {
+// Eliminar una película
+router.delete('/:id', async (req, res) => {
   try {
     await Movie.delete(req.params.id);
     res.json({ message: 'Película eliminada' });
