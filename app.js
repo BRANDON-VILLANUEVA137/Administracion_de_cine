@@ -45,8 +45,19 @@ app.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'login.html'));
 });
 
+const verificarAuth = (req, res, next) => {
+  if (!req.session.user) {
+    return res.status(401).send('No autorizado');
+  }
+  next();
+};
+
+// Protege rutas
+app.use('/api/movies', verificarAuth, movieRoutes);
+
+
+
 // Rutas
-app.use('/api/movies', movieRoutes);
 app.use(authRoutes); // Aquí se maneja POST /login
 app.use('/auth', authRoutes);
 
@@ -56,11 +67,6 @@ app.get('/', (req, res) => {
   res.send('¡Bienvenido al sistema de gestión de cine!');
 });
 
-// En app.js o authRoutes.js
-app.get('/api/check-auth', (req, res) => {
-  if (req.session.user) return res.sendStatus(200);
-  res.sendStatus(401);
-});
 
 
 // Servidor
