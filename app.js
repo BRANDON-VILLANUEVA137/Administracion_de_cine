@@ -48,6 +48,8 @@ app.get('/login', (req, res) => {
 // Rutas
 app.use('/api/movies', movieRoutes);
 app.use(authRoutes); // Aquí se maneja POST /login
+app.use('/auth', authRoutes);
+
 
 // Ruta raíz opcional
 app.get('/', (req, res) => {

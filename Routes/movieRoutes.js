@@ -2,7 +2,6 @@
 const express = require('express');
 const router = express.Router();
 const Movie = require('../models/movieModel');
-const { ensureAuthenticated, ensureRole } = require('../middlewares/authMiddleware');
 
 
 // Obtener todas las películas
