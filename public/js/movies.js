@@ -1,5 +1,20 @@
 const apiUrl = 'https://administraciondecine-gestion-de-cine.up.railway.app';
-;
+
+const checkAuthAndLoad = async () => {
+  const res = await fetch(`${apiUrl}/api/check-auth`, {
+    credentials: 'include'
+  });
+
+  if (!res.ok) {
+    window.location.href = '/views/login.html';
+    return;
+  }
+
+  cargarPeliculas();
+};
+
+
+
 const API_URL = '/api/movies';
 const peliculasContainer = document.getElementById('peliculas');
 const formulario = document.getElementById('formulario');
@@ -173,4 +188,4 @@ const eliminarPelicula = async (id) => {
 };
 
 // Inicializar
-cargarPeliculas();
+checkAuthAndLoad();

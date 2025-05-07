@@ -56,6 +56,13 @@ app.get('/', (req, res) => {
   res.send('¡Bienvenido al sistema de gestión de cine!');
 });
 
+// En app.js o authRoutes.js
+app.get('/api/check-auth', (req, res) => {
+  if (req.session.user) return res.sendStatus(200);
+  res.sendStatus(401);
+});
+
+
 // Servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
