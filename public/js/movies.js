@@ -109,7 +109,6 @@ const cargarPeliculas = async () => {
   <button onclick="editarPelicula(${pelicula.id})">Editar</button>
   <button onclick="eliminarPelicula(${pelicula.id})">Eliminar</button>
   <button onclick="verTrailer('${pelicula.trailer_url}')">Ver Trailer</button>
-  
 `;
 peliculasContainer.appendChild(div);
   });
