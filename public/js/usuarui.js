@@ -105,7 +105,7 @@ const cargarPeliculas = async () => {
 
 // Cargar películas destacadas (en cartelera) para el carrusel
 const cargarPeliculasEnCartelera = async () => {
-  const res = await fetch(`${apiUrl}/api/movies/estado/Cartelera`);
+  const res = await fetch(`${apiUrl}/api/movies/estado/cartelera`);
   const peliculas = await res.json();
 
   carruselItems.innerHTML = '';
