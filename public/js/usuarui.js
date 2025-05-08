@@ -105,27 +105,37 @@ const cargarPeliculas = async () => {
 
 // Cargar películas destacadas (en cartelera) para el carrusel
 const cargarPeliculasEnCartelera = async () => {
-  const res = await fetch(`${apiUrl}/api/movies/estado/Cartelera`);
-  const peliculas = await res.json();
+  try {
+    const res = await fetch(`${apiUrl}/api/movies/estado/Cartelera`);
+    if (!res.ok) throw new Error(`HTTP status ${res.status}`);
+    const peliculas = await res.json();
 
-  carruselItems.innerHTML = '';
+    if (!Array.isArray(peliculas) || peliculas.length === 0) {
+      throw new Error("Respuesta vacía del servidor");
+    }
 
-  peliculas.forEach((pelicula, index) => {
-    const item = document.createElement('div');
-    item.classList.add('itemCarrusel');
-    item.innerHTML = `
-      <div class="tarjetaCarrusel" style="background-image: url('${pelicula.image_url}')"></div>
-      <div class="flechasCarrusel">
-        <i>‹</i>
-        <i>›</i>
-      </div>
-    `;
-    carruselItems.appendChild(item);
-  });
+    carruselItems.innerHTML = '';
 
-  slides = document.querySelectorAll('.itemCarrusel');
-  configurarControlesCarrusel();
-  iniciarCarruselAutomatico();
+    peliculas.forEach((pelicula, index) => {
+      const item = document.createElement('div');
+      item.classList.add('itemCarrusel');
+      item.innerHTML = `
+        <div class="tarjetaCarrusel" style="background-image: url('${pelicula.image_url}')"></div>
+        <div class="flechasCarrusel">
+          <i>‹</i>
+          <i>›</i>
+        </div>
+      `;
+      carruselItems.appendChild(item);
+    });
+
+    slides = document.querySelectorAll('.itemCarrusel');
+    configurarControlesCarrusel();
+    iniciarCarruselAutomatico();
+
+  } catch (error) {
+    console.error("Error al cargar películas en cartelera:", error);
+  }
 };
 
 // Configurar controles del carrusel
