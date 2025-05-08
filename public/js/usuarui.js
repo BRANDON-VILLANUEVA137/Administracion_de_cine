@@ -146,7 +146,7 @@ const configurarControlesCarrusel = () => {
       }
       
       // Reiniciar el temporizador después de 5 segundos
-      setTimeout(iniciarCarruselAutomatico, 5000);
+      setTimeout(iniciarCarruselAutomatico, 10000);
     });
   });
 };
@@ -171,7 +171,7 @@ const actualizarCarrusel = () => {
 
 // Iniciar animación automática
 const iniciarCarruselAutomatico = () => {
-  intervalId = setInterval(moverSiguiente, 5000); // Cambia cada 5 segundos
+  intervalId = setInterval(moverSiguiente, 2000); // Cambia cada 5 segundos
 };
 
 // Detener animación automática
