@@ -20,7 +20,7 @@ const Movie = {
   create: async (movie) => {
     const { title, description, duration, rating, genre, trailer_url, image_url, estado } = movie;
     const [result] = await db.query(
-      'INSERT INTO movies (title, description, duration, rating, genre, trailer_url, image_url, estado) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      'INSERT INTO movies (title, description, duration, rating, genre, trailer_url, image_url, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
       [title, description, duration, rating, genre, trailer_url, image_url, estado]
     );
     return result.insertId;

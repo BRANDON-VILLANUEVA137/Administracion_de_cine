@@ -90,6 +90,7 @@ const cargarPeliculas = async () => {
     div.innerHTML = `
       <h3>${pelicula.title}</h3>
       <img src="${pelicula.image_url}" alt="${pelicula.title}">
+        <p><strong>Estado:</strong> ${pelicula.estado}</p>
       <p><strong>Duración:</strong> ${pelicula.duration} min</p>
       <p><strong>Género:</strong> ${pelicula.genre}</p>
       <p><strong>Clasificación:</strong> ${pelicula.rating}</p>

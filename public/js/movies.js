@@ -127,9 +127,7 @@ movieForm.addEventListener('submit', async (e) => {
     rating: document.getElementById('rating').value,
     genre: document.getElementById('genre').value,
     trailer_url: document.getElementById('trailer_url').value,
-    image_url: document.getElementById('image_url').value,
-    estado: document.getElementById('estado').value
-
+    image_url: document.getElementById('image_url').value
   };
 
   if (id) {
@@ -165,7 +163,7 @@ const editarPelicula = async (id) => {
   document.getElementById('genre').value = pelicula.genre;
   document.getElementById('trailer_url').value = pelicula.trailer_url;
   document.getElementById('image_url').value = pelicula.image_url;
-  document.getElementById('estado').value = pelicula.estado;
+
   formulario.classList.remove('oculto');
   formTitle.textContent = "Editar Película";
 
