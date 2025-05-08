@@ -32,6 +32,8 @@ searchInput.addEventListener('input', () => {
   });
 });
 
+
+
 // Filtro para ordenar a-z
 sortSelect.addEventListener('change', () => {
   const option = sortSelect.value;
@@ -101,18 +103,14 @@ const cargarPeliculas = async () => {
   });
 };
 
-// Cargar películas destacadas para el carrusel
-const cargarPeliculasDestacadas = async () => {
-  const res = await fetch(apiUrl + API_URL);
+// Cargar películas destacadas (en cartelera) para el carrusel
+const cargarPeliculasEnCartelera = async () => {
+  const res = await fetch(`${apiUrl}/api/movies/estado/Cartelera`);
   const peliculas = await res.json();
-  
-  // Limpiar el carrusel
+
   carruselItems.innerHTML = '';
-  
-  // Tomar las primeras 4 películas como destacadas (o todas si hay menos de 4)
-  const destacadas = peliculas.slice(0, 4);
-  
-  destacadas.forEach((pelicula, index) => {
+
+  peliculas.forEach((pelicula, index) => {
     const item = document.createElement('div');
     item.classList.add('itemCarrusel');
     item.innerHTML = `
@@ -124,14 +122,9 @@ const cargarPeliculasDestacadas = async () => {
     `;
     carruselItems.appendChild(item);
   });
-  
-  // Guardar referencia a los slides
+
   slides = document.querySelectorAll('.itemCarrusel');
-  
-  // Configurar eventos para las flechas
   configurarControlesCarrusel();
-  
-  // Iniciar animación automática
   iniciarCarruselAutomatico();
 };
 
@@ -189,7 +182,7 @@ const detenerCarruselAutomatico = () => {
 // Inicializar
 document.addEventListener('DOMContentLoaded', () => {
   cargarPeliculas();
-  cargarPeliculasDestacadas();
+  cargarPeliculasEnCartelera();
   
   // Pausar carrusel al hacer hover
   const carrusel = document.querySelector('.carrusel');
@@ -231,23 +224,7 @@ window.addEventListener('click', (e) => {
   }
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-  const body = document.body;
-  const modoBtn = document.getElementById('modo-btn');
-
-  // Cargar preferencia del usuario
-  if (localStorage.getItem('modo') === 'oscuro') {
-    body.classList.add('dark-mode');
-  }
-
-  modoBtn.addEventListener('click', () => {
-    body.classList.toggle('dark-mode');
-    const modoActual = body.classList.contains('dark-mode') ? 'oscuro' : 'claro';
-    localStorage.setItem('modo', modoActual);
-  });
-});
-
-document.getElementById('btnAgregar').addEventListener('click', () => {
+document.getElementById('InitSesion').addEventListener('click', () => {
   window.location.href = 'https://senzacine.netlify.app/views/login';
 });
 
