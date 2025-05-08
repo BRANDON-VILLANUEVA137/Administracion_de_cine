@@ -8,6 +8,11 @@ const Movie = {
     return rows;
   },
 
+  getPeliculasPorEstado: async (estado) => {
+    const [rows] = await db.query('SELECT * FROM movies WHERE estado = ?', [estado]);
+    return rows;
+  },
+  
   // Obtener una sola película
   getById: async (id) => {
     const [rows] = await db.query('SELECT * FROM movies WHERE id = ?', [id]);
