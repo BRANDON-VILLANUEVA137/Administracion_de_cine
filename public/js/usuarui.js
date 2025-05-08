@@ -32,8 +32,6 @@ searchInput.addEventListener('input', () => {
   });
 });
 
-
-
 // Filtro para ordenar a-z
 sortSelect.addEventListener('change', () => {
   const option = sortSelect.value;
@@ -103,39 +101,38 @@ const cargarPeliculas = async () => {
   });
 };
 
-// Cargar películas destacadas (en cartelera) para el carrusel
-const cargarPeliculasEnCartelera = async () => {
-  try {
-    const res = await fetch(`${apiUrl}/api/movies/estado/Cartelera`);
-    if (!res.ok) throw new Error(`HTTP status ${res.status}`);
-    const peliculas = await res.json();
-
-    if (!Array.isArray(peliculas) || peliculas.length === 0) {
-      throw new Error("Respuesta vacía del servidor");
-    }
-
-    carruselItems.innerHTML = '';
-
-    peliculas.forEach((pelicula, index) => {
-      const item = document.createElement('div');
-      item.classList.add('itemCarrusel');
-      item.innerHTML = `
-        <div class="tarjetaCarrusel" style="background-image: url('${pelicula.image_url}')"></div>
-        <div class="flechasCarrusel">
-          <i>‹</i>
-          <i>›</i>
-        </div>
-      `;
-      carruselItems.appendChild(item);
-    });
-
-    slides = document.querySelectorAll('.itemCarrusel');
-    configurarControlesCarrusel();
-    iniciarCarruselAutomatico();
-
-  } catch (error) {
-    console.error("Error al cargar películas en cartelera:", error);
-  }
+// Cargar películas destacadas para el carrusel
+const cargarPeliculasDestacadas = async () => {
+  const res = await fetch(apiUrl + API_URL);
+  const peliculas = await res.json();
+  
+  // Limpiar el carrusel
+  carruselItems.innerHTML = '';
+  
+  // Tomar las primeras 4 películas como destacadas (o todas si hay menos de 4)
+  const destacadas = peliculas.slice(0, 4);
+  
+  destacadas.forEach((pelicula, index) => {
+    const item = document.createElement('div');
+    item.classList.add('itemCarrusel');
+    item.innerHTML = `
+      <div class="tarjetaCarrusel" style="background-image: url('${pelicula.image_url}')"></div>
+      <div class="flechasCarrusel">
+        <i>‹</i>
+        <i>›</i>
+      </div>
+    `;
+    carruselItems.appendChild(item);
+  });
+  
+  // Guardar referencia a los slides
+  slides = document.querySelectorAll('.itemCarrusel');
+  
+  // Configurar eventos para las flechas
+  configurarControlesCarrusel();
+  
+  // Iniciar animación automática
+  iniciarCarruselAutomatico();
 };
 
 // Configurar controles del carrusel
@@ -156,7 +153,7 @@ const configurarControlesCarrusel = () => {
       }
       
       // Reiniciar el temporizador después de 5 segundos
-      setTimeout(iniciarCarruselAutomatico, 10000);
+      setTimeout(iniciarCarruselAutomatico, 5000);
     });
   });
 };
@@ -181,7 +178,7 @@ const actualizarCarrusel = () => {
 
 // Iniciar animación automática
 const iniciarCarruselAutomatico = () => {
-  intervalId = setInterval(moverSiguiente, 2000); // Cambia cada 5 segundos
+  intervalId = setInterval(moverSiguiente, 5000); // Cambia cada 5 segundos
 };
 
 // Detener animación automática
@@ -192,7 +189,7 @@ const detenerCarruselAutomatico = () => {
 // Inicializar
 document.addEventListener('DOMContentLoaded', () => {
   cargarPeliculas();
-  cargarPeliculasEnCartelera();
+  cargarPeliculasDestacadas();
   
   // Pausar carrusel al hacer hover
   const carrusel = document.querySelector('.carrusel');
@@ -232,6 +229,22 @@ window.addEventListener('click', (e) => {
     modal.style.display = 'none';
     iframe.src = '';
   }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const body = document.body;
+  const modoBtn = document.getElementById('modo-btn');
+
+  // Cargar preferencia del usuario
+  if (localStorage.getItem('modo') === 'oscuro') {
+    body.classList.add('dark-mode');
+  }
+
+  modoBtn.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    const modoActual = body.classList.contains('dark-mode') ? 'oscuro' : 'claro';
+    localStorage.setItem('modo', modoActual);
+  });
 });
 
 document.getElementById('InitSesion').addEventListener('click', () => {
