@@ -5,64 +5,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Gestión de Películas 🎬</title>
   <link rel="stylesheet" href="/public/css/usuario.css">
-
 </head>
 <body>
   <header>
     <h1>🎬 Cartelera de Películas</h1>
-    <button id="btnAgregar">Iniciar sesión</button>
-
+    <button id="InitSesion">Iniciar sesión</button>
   </header>
 
   <main>
-    <!-- Carrusel de películas destacadas -->
-    <div class="carrusel">
+    <!-- Carrusel destacado -->
+    <section class="carrusel">
       <div class="carrusel-items">
-        <div class="itemCarrusel">
-          <div class="tarjetaCarrusel" style="background-image: url('https://via.placeholder.com/1000x400?text=Estreno+1');"></div>
-          <div class="flechasCarrusel">
-            <i>‹</i>
-            <i>›</i>
-          </div>
-        </div>
-        <div class="itemCarrusel">
-          <div class="tarjetaCarrusel" style="background-image: url('https://via.placeholder.com/1000x400?text=Estreno+2');"></div>
-          <div class="flechasCarrusel">
-            <i>‹</i>
-            <i>›</i>
-          </div>
-        </div>
-        <div class="itemCarrusel">
-          <div class="tarjetaCarrusel" style="background-image: url('https://via.placeholder.com/1000x400?text=Estreno+3');"></div>
-          <div class="flechasCarrusel">
-            <i>‹</i>
-            <i>›</i>
-          </div>
-        </div>
+        <!-- Las tarjetas se insertan dinámicamente con JS -->
       </div>
-    </div>
+    </section>
 
-    <!-- Barra de búsqueda y filtros -->
-    <input type="text" id="searchInput" placeholder="Buscar por título o género...">
-    <div id="filtroLetras" class="filtro-letras"></div>
+    <!-- Secciones de películas -->
+    <section class="Cartelera">
+      <h2>En Cartelera</h2>
+      <div id="contenedorCartelera" class="peliculas-grid"></div>
+    </section>
 
-    <select id="sortSelect">
-      <option value="">Ordenar</option>
-      <option value="az">A-Z</option>
-      <option value="za">Z-A</option>
-    </select>
+    <section class="Proximamente">
+      <h2>Próximamente</h2>
+      <div id="contenedorProximamente" class="peliculas-grid"></div>
+    </section>
 
-    <!-- Listado de películas -->
-    <section id="peliculas"></section>
+    <!-- Búsqueda y filtros -->
+    <section class="filtros">
+      <input type="text" id="searchInput" placeholder="Buscar por título o género...">
+      <div id="filtroLetras" class="filtro-letras"></div>
+      <select id="sortSelect">
+        <option value="">Ordenar</option>
+        <option value="az">A-Z</option>
+        <option value="za">Z-A</option>
+      </select>
+    </section>
+
+    <!-- Películas anteriores -->
+    <section class="Anteriores">
+      <h2>Películas Anteriores</h2>
+      <div id="peliculas" class="peliculas-grid"></div>
+    </section>
   </main>
 
+  <!-- Modal de trailer -->
   <div id="modalTrailer" class="modal">
     <div class="modal-content">
       <span class="cerrar">&times;</span>
       <iframe id="trailerFrame" width="100%" height="400" frameborder="0" allowfullscreen></iframe>
     </div>
   </div>
-  
+
   <script src="/public/js/usuarui.js"></script>
 </body>
 </html>
