@@ -101,6 +101,7 @@ const cargarPeliculas = async () => {
     div.innerHTML = `
   <h3>${pelicula.title}</h3>
   <img src="${pelicula.image_url}" alt="${pelicula.title}">
+  <p><strong>Estado:</strong> ${pelicula.estado}</p>
   <p><strong>Duración:</strong> ${pelicula.duration} min</p>
   <p><strong>Género:</strong> ${pelicula.genre}</p>
   <p><strong>Clasificación:</strong> ${pelicula.rating}</p>
@@ -108,6 +109,7 @@ const cargarPeliculas = async () => {
   <button onclick="editarPelicula(${pelicula.id})">Editar</button>
   <button onclick="eliminarPelicula(${pelicula.id})">Eliminar</button>
   <button onclick="verTrailer('${pelicula.trailer_url}')">Ver Trailer</button>
+  
 `;
 peliculasContainer.appendChild(div);
   });
@@ -125,7 +127,9 @@ movieForm.addEventListener('submit', async (e) => {
     rating: document.getElementById('rating').value,
     genre: document.getElementById('genre').value,
     trailer_url: document.getElementById('trailer_url').value,
-    image_url: document.getElementById('image_url').value
+    image_url: document.getElementById('image_url').value,
+    estado: document.getElementById('estado').value
+
   };
 
   if (id) {
@@ -161,7 +165,7 @@ const editarPelicula = async (id) => {
   document.getElementById('genre').value = pelicula.genre;
   document.getElementById('trailer_url').value = pelicula.trailer_url;
   document.getElementById('image_url').value = pelicula.image_url;
-
+  document.getElementById('estado').value = pelicula.estado;
   formulario.classList.remove('oculto');
   formTitle.textContent = "Editar Película";
 

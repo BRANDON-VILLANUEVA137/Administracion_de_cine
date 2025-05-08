@@ -18,10 +18,10 @@ const Movie = {
 
   // Crear nueva película
   create: async (movie) => {
-    const { title, description, duration, rating, genre, trailer_url, image_url } = movie;
+    const { title, description, duration, rating, genre, trailer_url, image_url, estado } = movie;
     const [result] = await db.query(
-      'INSERT INTO movies (title, description, duration, rating, genre, trailer_url, image_url) VALUES (?, ?, ?, ?, ?, ?, ?)',
-      [title, description, duration, rating, genre, trailer_url, image_url]
+      'INSERT INTO movies (title, description, duration, rating, genre, trailer_url, image_url, estado) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      [title, description, duration, rating, genre, trailer_url, image_url, estado]
     );
     return result.insertId;
   },
