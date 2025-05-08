@@ -110,7 +110,7 @@ const cargarPeliculasDestacadas = async () => {
   carruselItems.innerHTML = '';
   
   // Tomar las primeras 4 películas como destacadas (o todas si hay menos de 4)
-  const destacadas = peliculas.slice(0, 4);
+  const destacadas = peliculas.slice(0, 5);
   
   destacadas.forEach((pelicula, index) => {
     const item = document.createElement('div');
@@ -231,23 +231,47 @@ window.addEventListener('click', (e) => {
   }
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-  const body = document.body;
-  const modoBtn = document.getElementById('modo-btn');
-
-  // Cargar preferencia del usuario
-  if (localStorage.getItem('modo') === 'oscuro') {
-    body.classList.add('dark-mode');
-  }
-
-  modoBtn.addEventListener('click', () => {
-    body.classList.toggle('dark-mode');
-    const modoActual = body.classList.contains('dark-mode') ? 'oscuro' : 'claro';
-    localStorage.setItem('modo', modoActual);
-  });
-});
 
 document.getElementById('InitSesion').addEventListener('click', () => {
   window.location.href = 'https://senzacine.netlify.app/views/login';
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  cargarPeliculasPorEstado('cartelera', 'contenedorCartelera');
+  cargarPeliculasPorEstado('proximamente', 'contenedorProximamente');
+});
+
+const cargarPeliculasPorEstado = async (estado, contenedorId) => {
+  try {
+    const res = await fetch(`${apiUrl}/api/movies/${estado}`);
+
+    if (!res.ok) {
+      throw new Error(`Error: ${res.statusText}`);
+    }
+
+    const text = await res.text(); // Obtener respuesta como texto
+    const peliculas = text ? JSON.parse(text) : []; // Intentar parsear el JSON solo si hay contenido
+
+    const contenedor = document.getElementById(contenedorId);  // Aquí utilizamos el id correcto
+    contenedor.innerHTML = ''; // Limpiar el contenido previo
+
+    peliculas.forEach(pelicula => {
+      const tarjeta = document.createElement('div');
+      tarjeta.classList.add('pelicula');
+      tarjeta.innerHTML = `
+        <img src="${pelicula.imagen_url}" alt="${pelicula.titulo}">
+        <h3>${pelicula.titulo}</h3>
+        <p>${pelicula.genero}</p>
+        <button onclick="verTrailer('${pelicula.trailer_url}')">Ver trailer</button>
+      `;
+      contenedor.appendChild(tarjeta);
+    });
+  } catch (err) {
+    console.error('Error cargando películas:', err);
+  }
+};
+
+document.querySelector(".cerrar").addEventListener("click", () => {
+  document.getElementById("modalTrailer").style.display = "none";
+  document.getElementById("trailerFrame").src = "";
+});

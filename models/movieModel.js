@@ -28,17 +28,25 @@ const Movie = {
 
   // Actualizar película
   update: async (id, movie) => {
-    const { title, description, duration, rating, genre, trailer_url, image_url } = movie;
+    const { title, description, duration, rating, genre, trailer_url, image_url, estado } = movie;
     await db.query(
-      'UPDATE movies SET title = ?, description = ?, duration = ?, rating = ?, genre = ?, trailer_url = ?, image_url = ? WHERE id = ?',
-      [title, description, duration, rating, genre, trailer_url, image_url, id]
+      'UPDATE movies SET title = ?, description = ?, estado = ?,duration = ?, rating = ?, genre = ?, trailer_url = ?, image_url = ?, estado = ? WHERE id = ?',
+      [title, description, duration, rating, genre, trailer_url, image_url, estado, id]
     );
   },
 
   // Eliminar película
   delete: async (id) => {
     await db.query('DELETE FROM movies WHERE id = ?', [id]);
+  },
+
+  getByEstado: async (estado) => {
+    const [rows] = await db.query('SELECT * FROM movies WHERE estado = ?', [estado]);
+    return rows;
   }
+
 };
+
+
 
 module.exports = Movie;

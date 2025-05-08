@@ -2,6 +2,8 @@
 const express = require('express');
 const router = express.Router();
 const Movie = require('../models/movieModel');
+const movieController = require('../controller/movieController');
+
 
 
 // Obtener todas las películas
@@ -13,6 +15,10 @@ router.get('/', async (req, res) => {
     res.status(500).json({ message: 'Error al obtener películas' });
   }
 });
+
+
+router.get('/estado/:estado', movieController.obtenerPorEstado);
+
 
 // Obtener una película por ID
 router.get('/:id', async (req, res) => {
@@ -53,6 +59,7 @@ router.delete('/:id', async (req, res) => {
     res.status(500).json({ message: 'Error al eliminar película' });
   }
 });
+
 
 
 module.exports = router;
