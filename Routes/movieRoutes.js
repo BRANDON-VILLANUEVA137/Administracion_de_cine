@@ -54,16 +54,5 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-// Obtener películas por estado
-router.get('/estado/:estado', async (req, res) => {
-  try {
-    const estado = req.params.estado;
-    const peliculas = await Movie.getPeliculasPorEstado(estado); // ✅ aquí estaba el error
-    res.json(peliculas);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Error al obtener películas por estado' });
-  }
-});
 
 module.exports = router;
